@@ -6,7 +6,8 @@ process.env.NODE_ENV = "production";
 const config = configFactory("production");
 webpack(config).run((err, stats) => {
   if (!err) {
-    return console.log(">>> 打包成功");
+    console.log(">>> 打包成功");
+  } else {
+    console.log(">>> 打包失败");
   }
-  console.log("🚀 ~ file: build.js ~ line 9 ~ webpack ~ err, stats", err, stats);
 });

@@ -1,10 +1,11 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const rootPath = (name) => require("path").join(__dirname, `../${name}`);
+const WebpackBar = require("webpackbar");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = (webpackEnv) => {
   const isEnvDevelopment = webpackEnv === "development";
   const isEnvProduction = webpackEnv === "production";
-
   return {
     mode: "production",
     cache: true,
@@ -14,6 +15,10 @@ module.exports = (webpackEnv) => {
       path: rootPath("build"),
       filename: isEnvProduction ? "static/js/[name].[contenthash:8].js" : "static/js/bundle.js",
     },
+    infrastructureLogging: {
+      level: "none",
+    },
+    stats: "errors-only",
     module: {
       rules: [
         {
@@ -30,6 +35,7 @@ module.exports = (webpackEnv) => {
       ],
     },
     plugins: [
+      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: rootPath("public/index.html"),
         filename: "index.html",
@@ -38,6 +44,7 @@ module.exports = (webpackEnv) => {
           removeComments: true,
         },
       }),
+      new WebpackBar(),
     ].filter(Boolean),
     optimization: {
       minimize: isEnvProduction,
