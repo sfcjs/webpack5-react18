@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const rootPath = (name) => require("path").join(__dirname, `../${name}`);
 const WebpackBar = require("webpackbar");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = (webpackEnv) => {
   const isEnvDevelopment = webpackEnv === "development";
@@ -11,9 +12,11 @@ module.exports = (webpackEnv) => {
     cache: true,
     performance: false,
     entry: rootPath("src/index.js"),
+    // externals: ["react", "react-dom"],
     output: {
       path: rootPath("build"),
       filename: isEnvProduction ? "static/js/[name].[contenthash:8].js" : "static/js/bundle.js",
+      chunkFilename: isEnvProduction ? "static/js/[name].[contenthash:8].chunk.js" : isEnvDevelopment && "static/js/[name].chunk.js",
     },
     infrastructureLogging: {
       level: "none",
@@ -35,7 +38,7 @@ module.exports = (webpackEnv) => {
       ],
     },
     plugins: [
-      new CleanWebpackPlugin(),
+      isEnvProduction && new CleanWebpackPlugin({ dry: rootPath("build"), cleanAfterEveryBuildPatterns: ["*.LICENSE.txt"] }),
       new HtmlWebpackPlugin({
         template: rootPath("public/index.html"),
         filename: "index.html",
@@ -45,9 +48,22 @@ module.exports = (webpackEnv) => {
         },
       }),
       new WebpackBar(),
+      isEnvProduction && new BundleAnalyzerPlugin(),
     ].filter(Boolean),
     optimization: {
       minimize: isEnvProduction,
+      splitChunks: isEnvProduction
+        ? {
+            cacheGroups: {
+              node_modules: {
+                test: /[\\/]node_modules[\\/]/,
+                name: "node_modules",
+                chunks: "initial",
+                priority: -10,
+              },
+            },
+          }
+        : {},
     },
   };
 };
