@@ -1,0 +1,28 @@
+{
+  "name": "webpack-react-18",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./webpack/start.js",
+    "build": "node ./webpack/build.js"
+  },
+  "dependencies": {
+    "react": "^18.0.0-rc.1-next-f0dd459e0-20220301",
+    "react-dom": "^18.0.0-rc.1-next-f0dd459e0-20220301"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "styled-jsx": "^5.0.0",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  }
+}
