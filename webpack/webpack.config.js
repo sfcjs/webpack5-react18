@@ -3,6 +3,7 @@ const rootPath = (name) => require("path").join(__dirname, `../${name}`);
 const WebpackBar = require("webpackbar");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = (webpackEnv) => {
   const isEnvDevelopment = webpackEnv === "development";
@@ -38,7 +39,7 @@ module.exports = (webpackEnv) => {
       ],
     },
     plugins: [
-      isEnvProduction && new CleanWebpackPlugin({ dry: rootPath("build"), cleanAfterEveryBuildPatterns: ["*.LICENSE.txt"] }),
+      isEnvProduction && new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: rootPath("public/index.html"),
         filename: "index.html",
@@ -48,10 +49,15 @@ module.exports = (webpackEnv) => {
         },
       }),
       new WebpackBar(),
-      isEnvProduction && new BundleAnalyzerPlugin(),
+      // isEnvProduction && new BundleAnalyzerPlugin(),
     ].filter(Boolean),
     optimization: {
       minimize: isEnvProduction,
+      minimizer: [
+        new TerserPlugin({
+          extractComments: false,
+        }),
+      ],
       splitChunks: isEnvProduction
         ? {
             cacheGroups: {
