@@ -16,6 +16,7 @@ module.exports = (webpackEnv) => {
     // externals: ["react", "react-dom"],
     output: {
       path: rootPath("build"),
+      publicPath: isEnvProduction ? "." : "",
       filename: isEnvProduction ? "static/js/[name].[contenthash:8].js" : "static/js/bundle.js",
       chunkFilename: isEnvProduction ? "static/js/[name].[contenthash:8].chunk.js" : isEnvDevelopment && "static/js/[name].chunk.js",
     },

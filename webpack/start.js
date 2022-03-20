@@ -17,6 +17,11 @@ const serve = new WebpackDevServer(
     compress: true,
     open: false,
     hot: true,
+    proxy: {
+      "/api": {
+        target: "http://47.101.165.153/",
+      },
+    },
     client: {
       reconnect: true,
     },

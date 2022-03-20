@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./webpack/start.js",
-    "build": "node ./webpack/build.js"
+    "build": "node ./webpack/build.js",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "react": "^18.0.0-rc.1-next-f0dd459e0-20220301",
@@ -20,6 +21,7 @@
     "@babel/preset-react": "^7.16.7",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
+    "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.5.0",
     "react-dev-utils": "^12.0.0",
     "style-loader": "^3.3.1",

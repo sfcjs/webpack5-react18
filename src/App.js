@@ -3,10 +3,10 @@ import { GLOBAL_STATE_CONTEXT } from "./store";
 
 const App = () => {
   const { THEME, SET_THEME, LANG, SET_LANG } = React.useContext(GLOBAL_STATE_CONTEXT);
-  return (
-    <div>
-      <p>{LANG["test"]}</p>
 
+  return (
+    <div className="container">
+      <h1>{LANG["test"]}</h1>
       <div>
         <button onClick={() => SET_THEME("light")}>light</button>
         <button onClick={() => SET_THEME("dark")}>dark</button>
@@ -17,8 +17,20 @@ const App = () => {
         <button onClick={() => SET_LANG("en")}>en</button>
       </div>
       <style jsx>{`
-        p {
+        .container {
+          height: 100vh;
+          width: 100vw;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+        h1 {
           color: ${THEME.color};
+        }
+        button {
+          width: 100px;
+          margin: 15px;
         }
       `}</style>
       <style jsx global>{`
