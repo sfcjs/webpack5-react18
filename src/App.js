@@ -3,6 +3,7 @@ import { GLOBAL_STATE_CONTEXT } from "./store";
 
 const App = () => {
   const { THEME, SET_THEME, LANG, SET_LANG } = React.useContext(GLOBAL_STATE_CONTEXT);
+  console.log("🚀 ~ file: App.js ~ line 6 ~ App ~ THEME", THEME);
 
   return (
     <div className="container">

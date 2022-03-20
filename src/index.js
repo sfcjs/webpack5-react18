@@ -1,10 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./App.js";
 import { GLOBAL_STATE_PROVIDER } from "./store";
 
 const root = document.getElementById("root");
-ReactDOM.createRoot(root).render(
+const ReactApp = ReactDOM.createRoot(root);
+
+ReactApp.render(
   <GLOBAL_STATE_PROVIDER>
     <App />
   </GLOBAL_STATE_PROVIDER>

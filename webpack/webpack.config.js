@@ -9,7 +9,7 @@ module.exports = (webpackEnv) => {
   const isEnvDevelopment = webpackEnv === "development";
   const isEnvProduction = webpackEnv === "production";
   return {
-    mode: "production",
+    mode: isEnvProduction ? "production" : "development",
     cache: true,
     performance: false,
     entry: rootPath("src/index.js"),
